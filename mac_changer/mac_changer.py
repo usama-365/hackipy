@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/local/bin/python
 
 import subprocess
 import optparse
@@ -10,22 +10,28 @@ import optparse
 def change_mac(interface,new_mac):
     
     """This function will change the mac address"""
+    
+    # Pre Image
+    print() # Just a line break
+    print(f"[>] Interface is set to {interface}")
+    print(f"[>] New MAC is set to {new_mac}")
+    
     # Putting interface down
-    print(f"[+] Interface is set to {interface}")
-    print(f"[+] New MAC is set to {new_mac}")
+    print() # Just a line break
     print("[+] Putting interface down")
     subprocess.call(["ifconfig",interface,"down"])
-    print("Interface down")
+    
     # Changing the mac address
-    print(f"[+] Changing the mac address to {new_mac}")
+    print(f"[+] Changing the mac address of {interface} to {new_mac}")
     subprocess.call(["ifconfig",interface,"hw","ether",new_mac])
-    print("Mac address changed successfully")
+    
     # Putting interface up
     print("[+] Putting interface up")
     subprocess.call(["ifconfig",interface,"up"])
-    print("Interface is up")
-    # Congratulations
-    print("MAC address succesfully changed :)")
+
+    # Addressing the user
+    print() # Just a line break
+    print("[>] We have done our best, if not successful, check the arguments you provided")
 
 def get_arguments():
     parser = optparse.OptionParser()
@@ -34,30 +40,21 @@ def get_arguments():
     (options,arguments) = parser.parse_args()
     return options.interface,options.new_mac
 
-########################################################################
-# Getting required values (Just by provided arguments)
-########################################################################
-
-
-
-########################################################################
-# Getting required values (During program)
-########################################################################
-
-"""
-interface = input("Enter the interface name or leave empty for wlan0 : ")
-if not interface:
-    interface = "wlan0"
-print(f"[+] Interface is set to {interface}")
-
-new_mac = input("Enter the new mac or leave empty for random : ")
-if not new_mac:
-    new_mac = "22:11:22:33:44:55"
-"""
 
 ########################################################################
 # Calling the function
 ########################################################################
 
 (interface,new_mac) = get_arguments()
+
+# Error Checking
+if not interface or not new_mac:
+    print("------------------------------------------------------------")
+    print("Next time use command line arguments boy, You can do it\nType 'python3 mac_changer.py -h' for instructions")
+    print("------------------------------------------------------------")
+    if not interface:
+        interface = input("Enter the interface you want to change : ")
+    if not new_mac:
+        new_mac = input("Enter the new mac : ")
+    
 change_mac(interface,new_mac)
