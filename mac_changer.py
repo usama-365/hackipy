@@ -1,7 +1,7 @@
-#!/usr/local/bin/python
+#!/usr/bin/python3
 
 import subprocess
-import optparse
+import argparse
 import re
 
 ########################################################################
@@ -31,10 +31,10 @@ def get_arguments():
 
     """This function will capture arguments from the command line if there are any and return them"""
 
-    parser = optparse.OptionParser()
-    parser.add_option("-i","--interface",dest="interface",help="Interface of which mac address you wanna change")
-    parser.add_option("-m","--mac",dest="new_mac",help="The new MAC address that you want")
-    (options,arguments) = parser.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-i","--interface",dest="interface",help="Interface of which mac address you wanna change")
+    parser.add_argument("-m","--mac",dest="new_mac",help="The new MAC address that you want")
+    options = parser.parse_args()
     return options.interface,options.new_mac
 
 def get_current_mac():
@@ -106,4 +106,4 @@ print() # Just a line break
 if mac_address_before_changing != get_current_mac():
     print("[+] MAC address changed successfully ;)")
 else:
-    print("[-] MAC address is not changed due to some reason :(")
+    print("[-] MAC address is not changed due to some reason :(\n[*] Make sure to run the script as root")
