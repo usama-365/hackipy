@@ -66,7 +66,7 @@ def get_ip_range():
 
     """This function will craft the local IPv4 range string"""
 
-    ip = str(subprocess.check_output(["hostname -I"],shell=True))
+    ip = str(subprocess.check_output(["hostname","-I"]))
     ip_range = re.search("[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.",ip)
     ip_range = str(ip_range[0])
     ip_range += '1/24'
