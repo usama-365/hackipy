@@ -1,9 +1,17 @@
 #!/usr/bin/python3
 
-import subprocess
-import argparse
-import re
-from random import choice as ch
+try:
+    print("[>] Importing required modules")
+    import subprocess
+    import argparse
+    import re
+    from random import choice as ch
+except ModuleNotFoundError:
+    print("[!] Missing modules, Exiting...")
+    exit()
+else:
+    print("[>] Modules successfully imported")
+    print() # Just a line break
 
 ########################################################################
 # User Defined Functions

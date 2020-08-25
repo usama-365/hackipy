@@ -1,9 +1,17 @@
 #!/usr/bin/python
 
-import scapy.all as scapy
-import argparse
-import subprocess
-import re
+try:
+    print("[>] Importing required modules")
+    import scapy.all as scapy
+    import argparse
+    import subprocess
+    import re
+except ModuleNotFoundError:
+    print("[!] Missing modules, Exiting...")
+    exit()
+else:
+    print("[>] Modules Successfully imported")
+    print() # Just a line break
 
 ########################################################################
 # User Defined Functions
