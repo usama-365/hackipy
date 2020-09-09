@@ -13,7 +13,7 @@ cd
 ```
 Clone the repository
 ```bash
-git clone https://github.com/usama-365/pyhack
+git clone https://github.com/usama-365/hackipy.git
 ```
 Change to the cloned repository (which is now directory)
 ```bash
