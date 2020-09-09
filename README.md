@@ -17,7 +17,7 @@ git clone https://github.com/usama-365/hackipy.git
 ```
 Change to the cloned repository (which is now directory)
 ```bash
-cd pyhack
+cd hackipy
 ```
 To run any tool, simply type
 ```bash
