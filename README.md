@@ -1,10 +1,12 @@
 # hackipy
-**All the tools that are here are for legal use only by white-hat hackers and pentesters, the author is not responsible for any misuse of these tools.**
+## Disclaimer
+**All the provided tools are for legal use only by white-hat hackers, cyber-security related people and pentesters, the author is not responsible for any misuse of these tools.**
 ## About the repository
-Hacking, pentesting and cyber-security related tools/scripts built with Python (3 of course). I have created these tools for my personal use but I am also publishing them here because I am not a closed-source giant. If these tools will help you or make your workflow easier, I'll be happy.
+hackipy is a collection of hacking, pentesting and cyber-security related tools/scripts built with Python (3 of course). I have created these tools for my personal use but I am also publishing them here because I am not a closed-source giant. If these tools will make your workflow easier or help you, I'll be happy. (I believe in get from the community, give to the community).
 
 ## Installation
-**This guide is written keeping new-bies in mind, if you are a seasoned professional, simply clone the repository**
+**This guide is written keeping new-bies in mind, if you are a seasoned professional, simply clone the repository.**
+
 Go to home directory
 ```bash
 cd
@@ -13,18 +15,18 @@ Clone the repository
 ```bash
 git clone https://github.com/usama-365/pyhack
 ```
-Change to the cloned repository/directory
+Change to the cloned repository (which is now directory)
 ```bash
 cd pyhack
 ```
-To run any tool, simply
+To run any tool, simply type
 ```bash
 ./tool_name.py
 ```
 ## About the tools
-**Note** : All tools are optimized to work without arguments (So you don't get afraid of errors without specifying them). Simply put, the arguments are optional. But it is still recommended to use arguments as they make the workflow faster and efficient.
+**Note** : All tools are optimized to work without arguments (So you don't get afraid of errors when you not provide them). Simply, the arguments are optional for every tool. But it is still recommended to use arguments as they make the workflow faster and efficient.
 #### 1) mac_modifier.py
-It is as it sounds. Another mac changer in the market. Changes the mac address of the provided interface (default if not provided) to the provided mac (random if not provided). Usually used before any pentesting session for anonymity.
+It is as it sounds. Another mac changer in the market. Changes the mac address of the provided interface (selects default interface if not provided) to the provided mac (generates random mac if not provided). Usually used before any pentesting session for anonymity.
 ```bash
 ./mac_modifier.py [arguments]
 ```
@@ -38,7 +40,7 @@ Arguments :
 > -h,--help        : Show help (Somewhat similar to this)
 
 #### 2) network_scanner.py
-Scans the network for client/s and show the output in formatted manner. Takes IP or IP range to scan as argument and scans all the IP's of current network if not provided. Usually used after changing mac_address for anonymity.
+Scans the network for client/s and show the output in formatted manner. Takes IP or IP range as argument and selects all the IP's of current network if IP or IP range not provided. Usually used after changing mac_address for anonymity.
 ```bash
 ./network_scanner.py [arguments]
 ```
@@ -50,7 +52,7 @@ Arguments :
 > -h,--help        : Show help (Somewhat similar to this)
 
 #### 3) arp_spoofer.py
-Exploits the weakness of ARP protocol to redirect packet flow between two targets through your machine. Makes you MITM (man-in-the-middle). Takes IP address of two targets as argument (inputs manually if not provided at all or correctly). Starts sending spoof packets to both. Restores the ARP table by sending honest responses when stopped to make things normal ASAP. Usually used after network_scanner.py on the discovered hosts.
+Exploits the weakness of ARP protocol to redirect packet flow between two targets through your machine. Makes you MITM (man-in-the-middle). Takes IP address of two targets as argument (inputs manually if IP's are not provided at all or not provided correctly). Starts sending spoof packets to both. Restores the ARP table by sending honest responses when stopped to make things normal ASAP. Usually used after network_scanner.py on the discovered hosts.
 ```bash
 ./arp_spoofer.py [arguments]
 ```
@@ -62,7 +64,7 @@ Arguments :
 > -h,--help        : Show help (Somewhat similar to this)
 
 #### 4) packet_sniffer.py
-Sniffs the packets on the provided interface (Default if not provided). Extracts **DNS requests** (Helps in sniffing some URL's victim is visiting), **URL's being visited** (HTTP only, URL's of sites, images, videos and other HTTP content) and **Usernames and Passowrds** (Transmitted through HTTP). Usually used after you become MITM by arp_spoofer.py to sniff packets that are being forwarded but can also sniff packets coming or going to your machine through the network interface.
+Sniffs the packets on the provided interface (Selects default interface if not provided). Extracts **DNS requests** (Helps in sniffing some URL's victim is visiting), **URL's being visited** (in HTTP requests, includes URL's of sites, images, videos and other HTTP content) and **Usernames and Passowrds** (Transmitted through HTTP). Usually used after you become MITM by arp_spoofer.py to sniff packets that are being forwarded through your machine. It can also sniff packets of your machine that are being transferred through the selected network interface.
 ```bash
 ./packet_sniffer.py [arguments]
 ```
@@ -74,7 +76,7 @@ Arguments :
 > -h,--help        : Show help (Somewhat similar to this)
 
 #### 5) dns_spoofer.py
-Spoofs and manipulate the DNS responses to redirect the (victim) machine recieving the responses to where you want. Takes the target DNS (Specific DNS responses you want to manipulate for custom redirection) and spoof IP (IP of webserver/website which will be replaced in DNS response original IP to redirect the victim) as argument. Creates a queue where packets are stored and releases the packets matching the specific criteria after manipulation. Arguments can also be provided to spoof packets of your own machine (INPUT and OUTPUT chain) rather than the victim machine (FORWARD chain, victim packets flowing through your machine after you become MITM) and to totally block the packets. Usually used after becoming MITM by arp_spoofer.py and in paralell with packet_sniffer.py to sniff the interesting packets after redirecting the client to a not so secure webpage or website using DNS spoofing.
+Spoofs and manipulate the DNS responses to redirect the (victim) machine recieving the responses where you want. Takes the target DNS (meaning specific DNS responses you want to manipulate for custom redirection) and spoof IP (that can be IP of webserver/website which will be replaced in original DNS response to redirect the victim) as argument. Creates a queue where packets are stored and releases the packets after manipulation. Arguments can also be provided to spoof packets of your own machine (INPUT and OUTPUT chain) rather than the victim machine (FORWARD chain that includes victim packets flowing through your machine after you become MITM) and also to totally block the packets. Usually used after becoming MITM by arp_spoofer.py and in paralell with packet_sniffer.py to sniff the interesting packets after redirecting the victim to a not so secure webpage or website using DNS spoofing.
 ```bash
 ./dns_spoofer [arguments]
 ```
