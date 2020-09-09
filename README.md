@@ -1,37 +1,94 @@
 # hackipy
+**All the tools that are here are for legal use only by white-hat hackers and pentesters, the author is not responsible for any misuse of these tools.**
 ## About the repository
 Hacking, pentesting and cyber-security related tools/scripts built with Python (3 of course). I have created these tools for my personal use but I am also publishing them here because I am not a closed-source giant. If these tools will help you or make your workflow easier, I'll be happy.
 
 ## Installation
-**This guide is written keeping new-bies in mind, if you are a seasoned professional, simply clone the repository***
+**This guide is written keeping new-bies in mind, if you are a seasoned professional, simply clone the repository**
 Go to home directory
-'''bash
+```bash
 cd
-'''
+```
 Clone the repository
-'''bash
+```bash
 git clone https://github.com/usama-365/pyhack
-'''
+```
 Change to the cloned repository/directory
-'''bash
+```bash
 cd pyhack
-'''
+```
 To run any tool, simply
-'''bash
+```bash
 ./tool_name.py
-'''
+```
 ## About the tools
 **Note** : All tools are optimized to work without arguments (So you don't get afraid of errors without specifying them). Simply put, the arguments are optional. But it is still recommended to use arguments as they make the workflow faster and efficient.
-#### mac_modifier.py
-It is as it sounds. Another mac changer in the market. Changes the mac address of the provided interface (default if not provided) to the provided mac (random if not provided).
-'''
+#### 1) mac_modifier.py
+It is as it sounds. Another mac changer in the market. Changes the mac address of the provided interface (default if not provided) to the provided mac (random if not provided). Usually used before any pentesting session for anonymity.
+```bash
 ./mac_modifier.py [arguments]
-'''
+```
 Arguments :
-> -i,--interface : Specify the interface of which MAC you want to change (If not provided, default interface would be selected)
+> -i,--interface X : Specify the interface (X) of which MAC you want to change (If not provided, default interface would be selected)
+>
+> -m,--mac X       : Specify the new MAC address (X) (A random MAC address will be calculated if not provided)
+>
+> -s,--silent      : Show less output (Not recommended if you want to look cool)
+>
+> -h,--help        : Show help (Somewhat similar to this)
 
-> -m,--mac       : Specify the new MAC address (A random MAC address will be calculated if not provided)
+#### 2) network_scanner.py
+Scans the network for client/s and show the output in formatted manner. Takes IP or IP range to scan as argument and scans all the IP's of current network if not provided. Usually used after changing mac_address for anonymity.
+```bash
+./network_scanner.py [arguments]
+```
+Arguments :
+> -t,--target X    : IP or IP range (X) to scan, all if not provided
+>
+> -s,--silent      : Show less output (Not recommended if you want to look cool)
+>
+> -h,--help        : Show help (Somewhat similar to this)
 
-> -s,--silent    : Show less output (Not recommended if you want to look cool)
+#### 3) arp_spoofer.py
+Exploits the weakness of ARP protocol to redirect packet flow between two targets through your machine. Makes you MITM (man-in-the-middle). Takes IP address of two targets as argument (inputs manually if not provided at all or correctly). Starts sending spoof packets to both. Restores the ARP table by sending honest responses when stopped to make things normal ASAP. Usually used after network_scanner.py on the discovered hosts.
+```bash
+./arp_spoofer.py [arguments]
+```
+Arguments :
+> -t,--targets X Y : IP pair (X and Y) to spoof
+>
+> -s,--silent      : Show less output (Not recommended if you want to look cool)
+>
+> -h,--help        : Show help (Somewhat similar to this)
 
-> -h,--help      : Show help (Somewhat similar to this)
+#### 4) packet_sniffer.py
+Sniffs the packets on the provided interface (Default if not provided). Extracts **DNS requests** (Helps in sniffing some URL's victim is visiting), **URL's being visited** (HTTP only, URL's of sites, images, videos and other HTTP content) and **Usernames and Passowrds** (Transmitted through HTTP). Usually used after you become MITM by arp_spoofer.py to sniff packets that are being forwarded but can also sniff packets coming or going to your machine through the network interface.
+```bash
+./packet_sniffer.py [arguments]
+```
+Arguments :
+> -i,--interface X : Interface (X) to sniff on, default if not provided
+>
+> -s,--silent      : Show less output (Not recommended if you want to look cool)
+>
+> -h,--help        : Show help (Somewhat similar to this)
+
+#### 5) dns_spoofer.py
+Spoofs and manipulate the DNS responses to redirect the (victim) machine recieving the responses to where you want. Takes the target DNS (Specific DNS responses you want to manipulate for custom redirection) and spoof IP (IP of webserver/website which will be replaced in DNS response original IP to redirect the victim) as argument. Creates a queue where packets are stored and releases the packets matching the specific criteria after manipulation. Arguments can also be provided to spoof packets of your own machine (INPUT and OUTPUT chain) rather than the victim machine (FORWARD chain, victim packets flowing through your machine after you become MITM) and to totally block the packets. Usually used after becoming MITM by arp_spoofer.py and in paralell with packet_sniffer.py to sniff the interesting packets after redirecting the client to a not so secure webpage or website using DNS spoofing.
+```bash
+./dns_spoofer [arguments]
+```
+Arguments :
+> -io,--inout        : Spoof the DNS packets of your machine rather than the victim machine (forwarded packets)
+>
+> -b,--block         : Block/Drop the packets entirely (No Internet)
+>
+> -td,--target-dns X : Target a specific DNS response (X) (e.g. www.example.com) for manipulating and spoofing, targets and spoofs every DNS response if not provided
+>
+> -si,--spoof-ip X	 : IP (X) that would take place of original IP in DNS response for custom redirection of victim, the victim will be redirected to this IP (X)
+>
+> -s,--silent        : Show less output (Not recommended if you want to look cool)
+>
+> -h,--help        : Show help (Somewhat similar to this)
+
+**To be continued**
