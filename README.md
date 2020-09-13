@@ -94,14 +94,14 @@ Arguments :
 > -h,--help          : Show help (Somewhat similar to this)
 
 #### 6) file_interceptor.py
-Monitors for HTTP GET requests for files and intercepts the responses. Manipulates the response to serve the victim **dangerous** files rather than the ones he/she intended for. Whenever the user will request for a file download over HTTP, the original file download link will be replaced with the link of file you provide. Takes the direct download link/URL of the file you want to replace with original file as an argument (compulsory). Also takes the file type/extension to target for (e.g. .exe) as an argument (and if not provided, then automatically selects some common formats e.g. .pdf, .exe, .doc etc, *More will be added soon*).  Usually used after becoming MITM with arp_spoofer.py to replace the files the victim wants to download with backdoors, credential harvesters, keyloggers etc.
+Monitors for HTTP GET requests for files and intercepts the responses. Manipulates the response to serve the victim **dangerous** files rather than the ones he/she intended for. Whenever the victim will request for a file download over HTTP, the original download link will be replaced with the you provide. Takes direct download link of the file you want to replace with original file as an argument (compulsory). Also takes the file type/extension to target for (For example .exe) as an argument (and if not provided, then automatically selects some common formats, for example .pdf, .exe, .doc etc, *More will be added soon*).  Usually used after becoming MITM with arp_spoofer.py to replace the files the victim wants to download with backdoors, credential harvesters, keyloggers etc.
 ```bash
 ./file_interceptor.py [arguments]
 ```
 Arguments :
-> -f,--filetype X      : File type (X) to target for (e.g. .exe) (Selects common filetypes if not provided)
->
 > -r,--replace X       : Direct download link/URL (X) of the file you want to replace with original file
+>
+> -f,--filetype X      : File type (X) to target for (e.g. .exe) (Selects common filetypes if not provided)
 >
 > -io,--inout 	       : Intercept the file from your machine rather than the victim machine (forwarded packets)
 >
