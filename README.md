@@ -94,7 +94,7 @@ Arguments :
 > -h,--help          : Show help (Somewhat similar to this)
 
 #### 6) file_interceptor.py
-Monitors for HTTP GET requests for files and intercepts the responses. Manipulates the response to serve the victim **dangerous** files rather than the ones he/she intended for. Whenever the victim will request for a file download over HTTP, the original download link will be replaced with the you provide. Takes direct download link of the file you want to replace with original file as an argument (compulsory). Also takes the file type/extension to target for (For example .exe) as an argument (and if not provided, then automatically selects some common formats, for example .pdf, .exe, .doc etc, *More will be added soon*).  Usually used after becoming MITM with arp_spoofer.py to replace the files the victim wants to download with backdoors, credential harvesters, keyloggers etc.
+Monitors for HTTP GET requests for files and intercepts the responses. Manipulates the response to serve the victim **dangerous** files rather than the ones he/she intended for. Whenever the victim will request for a file download over HTTP, the original download link will be replaced with the link you provide. Takes (direct) download link of the **dangrous** file as an argument (compulsory). Also takes the file type/extension to target for (For example .exe) as an argument (and if not provided, then automatically selects some common formats, for example .pdf, .exe, .doc etc, *More will be added soon*). Usually used after becoming MITM with arp_spoofer.py to replace the files the victim wants to download with backdoors, credential harvesters, keyloggers etc.
 ```bash
 ./file_interceptor.py [arguments]
 ```
