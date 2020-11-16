@@ -64,7 +64,7 @@ if mac_is_valid(new_mac):
     print(f"[>] Interface is set to {interface}") if not mute else nothing()
     print(f"[>] New MAC is set to {new_mac}") if not mute else nothing()
     # Changing the MAC
-    change_mac(new_mac, interface)
+    change_mac(new_mac, interface, mute)
 else:
     print("[!] Your provided MAC address is not valid, It should be in form of XX:XX:XX:XX:XX:XX and first two digits should be even")
     exit()

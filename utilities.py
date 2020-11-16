@@ -38,7 +38,7 @@ def mac_is_valid(mac_address):
 def generate_random_mac():
     """This function will generate and return a random mac address"""
 
-    evens = [0, 2, 3, 4, 6, 8]
+    evens = [0, 2, 4, 6, 8]
     hexes = [
         0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F'
     ]
@@ -47,13 +47,13 @@ def generate_random_mac():
 
 
 def get_default_interface():
-    """This function will return the default network interface (Improvements needed due to predicatable network interface names)"""
+    """This function will return the default network interface"""
 
-    default_routing_table = str(subprocess.check_output(
-        ["route", "|", "grep", "default"]))
-    default_interface = re.search(
-        "[lawethn]{3,4}[\d]{1,2}", default_routing_table)
-    return default_interface[0]
+    default_routing_table = (str(subprocess.check_output("route")))[0:-3]
+    default_interface = re.search('\s+\S*$', default_routing_table)
+    default_interface = default_interface[0][1:]
+
+    return default_interface
 
 
 def get_current_mac(interface):
@@ -71,9 +71,13 @@ def get_current_mac(interface):
     return mac_address[0]
 
 
-def change_mac(new_mac, interface):
+def change_mac(new_mac, interface, mute):
     """This function will change the mac address"""
 
+    print() if not mute else nothing()
+    print("[+] Putting interface down") if not mute else nothing()
     subprocess.call(["ifconfig", interface, "down"])
+    print("[+] Changing MAC") if not mute else nothing()
     subprocess.call(["ifconfig", interface, "hw", "ether", new_mac])
+    print("[+] Putting interface up") if not mute else nothing()
     subprocess.call(["ifconfig", interface, "up"])
